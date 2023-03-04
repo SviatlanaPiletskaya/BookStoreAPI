@@ -1,0 +1,83 @@
+{
+	"info": {
+		"_postman_id": "83d072ad-6002-4538-96c0-8174112da945",
+		"name": "BookStoreApp",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24073574"
+	},
+	"item": [
+		{
+			"name": "Get list books",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Status code is OK\", function () {",
+							"    pm.response.to.have.status(\"OK\");",
+							"});",
+							"",
+							"pm.test(\"Check response have string 'title'\", function () {",
+							"    pm.expect(pm.response.text()).to.have.string(\"title\");",
+							"});",
+							"",
+							"pm.test(\"Body matches string not include\", function () {",
+							"    pm.expect(pm.response.text()).to.not.include(\"error\");",
+							"});",
+							"",
+							"var BooksArr = pm.response.json().books",
+							"",
+							"pm.test(\"Сheck the number of books in the list\", function () {",
+							"    pm.expect(BooksArr.length).to.eql(8);",
+							"});",
+							"",
+							"pm.test(\"Checking book titles\", function () {",
+							"    pm.expect(BooksArr[0].title).to.eql(\"Git Pocket Guide\");",
+							"    pm.expect(BooksArr[1].title).to.eql(\"Learning JavaScript Design Patterns\");",
+							"    pm.expect(BooksArr[2].title).to.eql(\"Designing Evolvable Web APIs with ASP.NET\");",
+							"    pm.expect(BooksArr[3].title).to.eql(\"Speaking JavaScript\");",
+							"    pm.expect(BooksArr[4].title).to.eql(\"You Don't Know JS\");",
+							"    pm.expect(BooksArr[5].title).to.eql(\"Programming JavaScript Applications\");",
+							"    pm.expect(BooksArr[6].title).to.eql(\"Eloquent JavaScript, Second Edition\");",
+							"    pm.expect(BooksArr[7].title).to.eql(\"Understanding ECMAScript 6\");",
+							"});",
+							"",
+							"// console.log(pm.response.json().books.length)",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/bookstore/v1/books",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"bookstore",
+						"v1",
+						"books"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
